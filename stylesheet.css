@@ -1,0 +1,109 @@
+  *{
+    padding: 0;
+    margin: 0;
+  }
+
+  body{
+    display: block;
+    height: 98vh;
+  }
+
+  #maze {
+    height: 746px;
+    width: 660px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  table{
+    position: absolute;
+    right:0;
+    left:0;
+    border: none;
+  }
+
+  #cursor {
+    width:  40px;
+    height: 40px;
+    background-color: red;
+    position: absolute;
+    top: 70px;
+    left: 70px;
+  }
+
+  .flexBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .display {
+    width: 10em;
+    margin: 1em 0;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5em;
+    border: solid 1px;
+    border-radius: 10px;
+  }
+
+  .runking{
+    position: fixed;
+    width: 400px;
+    height: 350px;
+    border: solid 1px;
+    border-radius: 10px;
+    left: 50px;
+  }
+
+  .runking h2{
+    text-align: center;
+    line-height: 3em;
+  }
+
+  .runking ol{
+    margin-left: 2em;
+    font-size: 2em;
+  }
+
+  th,td {
+    width:  60px;
+    height: 60px; 
+  }
+
+  #result{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .resetBotton{
+    margin-left: 20px;
+    padding: 1em;
+    border: solid 1px;
+    border-radius: 10px;
+  }
+  
+  .resetBotton a{
+    display: inline-block;
+    padding: 1em;
+    line-height: 4em;
+    width:100%;
+  }
+
+  .obst{
+    background-color: darkslategrey;
+  }
+
+  #goal {
+    background-color: green;
+  }
+
+  @media screen and (max-width: 1700px) {
+    .runking {
+      display: none;
+    }
+  }
+
+  
