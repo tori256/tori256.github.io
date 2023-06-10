@@ -3,7 +3,8 @@ const cursor = document.querySelector('#cursor');
 const goal = document.querySelector('#goal');
 const result = document.querySelector('#result');
 const display = document.querySelector('.display');
-const lists = document.querySelectorAll('.runking li');
+const runking = document.querySelector('.runking');
+const lists = runking.querySelectorAll('li');
 const startBotton = document.querySelector('.startBotton');
 const resetBotton = document.querySelector('.resetBotton');
 
@@ -12,15 +13,17 @@ let isGameStarted = false;
 let isGameNotYet = true;
 let time;
 let timerID;
+let logTime = [];
+let logTimeIndex = 0;
 
-function displayTime(){
+function convertTime(time){
   let dmsecond = time % 100;
   let second = Math.floor(time / 100) % 60;
   let minuite = Math.floor(time / 6000);
   if(dmsecond / 10 < 1)dmsecond = "0" + dmsecond;
   if(second / 10 < 1)second = "0" + second;
   if(minuite / 10 < 1)minuite = "0" + minuite;
-  display.textContent = `${minuite}'${second}"${dmsecond}`;
+  return `${minuite}'${second}"${dmsecond}`;
 }
 
 resetBotton.addEventListener('click',()=>{
@@ -29,17 +32,17 @@ resetBotton.addEventListener('click',()=>{
   cursor.style.left = '70px';
   result.textContent = '赤い四角をクリックしてスタート';
   time = 0;
-  displayTime();
+  display.textContent = convertTime(time);
 });
 
 startBotton.addEventListener('click',()=>{
   if(isGameNotYet){
     result.textContent = '';
     time = 0;
-    displayTime();
+    display.textContent = convertTime(time);
     timerID = setInterval(()=>{
       time ++;
-      displayTime();
+      display.textContent = convertTime(time);
     },10);
     isGameStarted = true;
     isGameNotYet = false;
@@ -82,14 +85,31 @@ function checkCollision(obj,text){
 function stopGame() {
   if(isGameStarted){
     clearInterval(timerID);
-    displayTime();
+    display.textContent = convertTime(time);
     isGameStarted = false;
-    for(const list of lists){
-      if(list.textContent == "" && result.textContent == 'ゴール'){
-        list.textContent = display.textContent;
-        break;
+    if(result.textContent == 'ゴール'){
+      if(logTime.length != 0){
+        for(let i = 0; i < lists.length; i++){
+          if(logTime[i] > time){
+            logTime.splice(i,0,time);
+            break;
+          }else if(i == logTime.length - 1){
+            logTime.push(time);
+            break;
+          }
+        }
+      }else{
+        logTime[logTime.length] = time;
+      }
+      console.log(logTime);
+      for(let i = 0; i < lists.length; i++){
+        if(logTime[i] != undefined){
+          lists[i].textContent = convertTime(logTime[i]);
+        }
+        console.log(logTime[i]);
       }
     }
+    
   }
 }
 
